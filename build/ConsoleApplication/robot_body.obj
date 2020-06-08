@@ -1,0 +1,44 @@
+# Alias OBJ Model File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+# File units = meters
+
+mtllib robot_body.mtl
+
+g Mesh1 Model
+
+usemtl FrontColor
+v 0 0 -5
+vt 0 196.85
+vn 0 -1 -0
+v 5 0 -5
+vt -196.85 196.85
+v 5 0 -0
+vt -196.85 0
+v 0 0 -0
+vt 0 0
+f 1/1/1 2/2/1 3/3/1 4/4/1 
+
+vn 0 0 -1
+v 0 8 -5
+vt 0 314.961
+v 5 8 -5
+vt -196.85 314.961
+f 2/3/2 1/4/2 5/5/2 6/6/2 
+
+vn -1 0 -0
+v 0 8 -0
+f 1/3/3 4/4/3 7/5/3 5/6/3 
+
+vn 0 0 1
+vt 196.85 0
+v 5 8 -0
+vt 196.85 314.961
+f 4/4/4 3/7/4 8/8/4 7/5/4 
+
+vn 1 0 -0
+f 3/4/5 2/7/5 6/8/5 8/5/5 
+
+vt 196.85 196.85
+vn 0 1 -0
+f 6/9/6 5/1/6 7/4/6 8/7/6 
+

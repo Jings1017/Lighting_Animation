@@ -1,0 +1,12 @@
+﻿  tiny_obj_loader.cc
+c:\users\jings\downloads\hw3_sample code\hw3_sample code\sample code\source\source\tiny_obj_loader.cc(461): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : 請參閱 'sscanf' 的宣告
+c:\users\jings\downloads\hw3_sample code\hw3_sample code\sample code\source\source\tiny_obj_loader.cc(748): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : 請參閱 'sscanf' 的宣告
+c:\users\jings\downloads\hw3_sample code\hw3_sample code\sample code\source\source\tiny_obj_loader.cc(771): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : 請參閱 'sscanf' 的宣告
+c:\users\jings\downloads\hw3_sample code\hw3_sample code\sample code\source\source\tiny_obj_loader.cc(833): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : 請參閱 'sscanf' 的宣告
+  main.cpp
+c:\users\jings\downloads\hw3_sample code\hw3_sample code\sample code\source\source\main.cpp(1): fatal error C1083: 無法開啟包含檔案: 'GL/glew.h': No such file or directory
+  正在產生程式碼...
