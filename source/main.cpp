@@ -43,6 +43,7 @@ float test_move = 0;
 bool running = false;
 
 bool scope_rotate = false;
+float delta = 0;
 
 struct object_struct{
 	unsigned int program;
@@ -53,14 +54,15 @@ struct object_struct{
 	object_struct() : model(glm::mat4(1.0f)){}
 };
 
-glm::vec3 cameraPos = glm::vec3(40.0f, 40.0f, 40.0f);
-glm::vec3 cameraFront = glm::vec3(-40.0f, -40.0f, -44.0f);
+glm::vec3 cameraPos = glm::vec3(10.0f, 0.0f, 43.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float pitch = (float)(asin(cameraFront.y) * 180 / 3.1415926);
-float yaw = (float)(acos(cameraFront.x / cameraFront.y) * 180 / 3.1415926 - 180);
 bool firstMouse = true;
-float lastX = 400, lastY = 300;  //   mouse position initialization
+float pitch = 0.0f;
+float yaw = -90.0f;
+float lastX = 400.0f;
+float lastY = 300.0f;
 float fov = 45.0f;
 
 std::vector<object_struct> objects;//vertex array object,vertex buffer object and texture(color) for objs
@@ -109,8 +111,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(front);
-
-	
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -273,6 +273,7 @@ void motion(GLFWwindow* window) {
 		vertical_rotate_move -= 0.1;
 	}
 
+	// camera section
 	GLfloat cameraSpeed = 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
 		cameraPos += cameraSpeed * cameraFront;
@@ -280,6 +281,7 @@ void motion(GLFWwindow* window) {
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
 		cameraPos -= cameraSpeed * cameraFront;
+		std::cout <<"camera pos: "<<cameraPos.x<<", "<<cameraPos.y<<", "<<cameraPos.z<<std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
@@ -290,8 +292,11 @@ void motion(GLFWwindow* window) {
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 
+	//
+
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 		test_move += 0.1;
+		std::cout << test_move << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
@@ -633,8 +638,8 @@ static void render()
 		//mPosition = glm::translate(mPosition, modelPositions[i]);
 		if (i == 0) {		//for main body
 			mPosition = glm::scale(mPosition, glm::vec3(1.0f, 1.0f, 1.0f));
-			mPosition = glm::translate(mPosition, glm::vec3(0, jump_move, 0));
-			mPosition = glm::rotate(mPosition, (float)rotate_move, glm::vec3(0.0f, 1.0f, 0.0f));
+			mPosition = glm::translate(mPosition, glm::vec3(6.2, jump_move, 0));
+			mPosition = glm::rotate(mPosition, (float)rotate_move-1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 			mPosition = glm::rotate(mPosition, (float)vertical_rotate_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			body_position = mPosition;
 			
@@ -713,7 +718,7 @@ static void render()
 			float Y = radiusY;
 			float Z = radiusZ;
 			mPosition = body_position;
-			mPosition = glm::translate(mPosition, glm::vec3(X + test_move, Y , Z));
+			mPosition = glm::translate(mPosition, glm::vec3(X , Y , Z));
 			mPosition = glm::scale(mPosition, glm::vec3(1.0f, 1.0f, 1.0f));
 			mPosition = glm::rotate(mPosition, (float)3.2+back_left_thigh_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			left_thigh_position = mPosition;
@@ -815,7 +820,6 @@ int main(int argc, char *argv[])
 	glfwSetKeyCallback(window, key_callback);
 
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 	//glfwSetCursorPosCallback(window, mouse_callback);
 
 	glfwSetScrollCallback(window, scroll_callback);
@@ -862,7 +866,7 @@ int main(int argc, char *argv[])
 		setUniformMat4(program, "vp", glm::perspective(glm::radians(fov), 800.0f / 600, 1.0f, 100.f) *
 			glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * glm::mat4(1.0f));
 		motion(window);
-		std::cout << "camera : " << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << std::endl;
+		//std::cout << "camera : " << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << std::endl;
 
 		if (running == true) {
 			running_mode();

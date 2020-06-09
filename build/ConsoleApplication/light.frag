@@ -17,7 +17,7 @@ void main()
 	vec3 reflectVec = reflect(-lightDir,Normal);
 	vec3 cameraVec = normalize(cameraPos - FragPos);
 
-	float specularAmount = pow(max(dot(reflectVec,cameraVec),0),2);
+	float specularAmount = pow(max(dot(reflectVec,cameraVec),0),256);
 	vec3 specular = specularAmount*lightColor;
 
 	vec3 diffuse = max(dot(lightDir,Normal),0) * lightColor;
