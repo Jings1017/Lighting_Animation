@@ -253,7 +253,6 @@ void motion(GLFWwindow* window) {
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-		//std::cout << glfwGetTime() << std::endl;
 		if (running == false) {
 			running = true;
 		}
@@ -636,7 +635,7 @@ static void render()
 			mPosition = glm::scale(mPosition, glm::vec3(1.0f, 1.0f, 1.0f));
 			mPosition = glm::translate(mPosition, glm::vec3(0, jump_move, 0));
 			mPosition = glm::rotate(mPosition, (float)rotate_move, glm::vec3(0.0f, 1.0f, 0.0f));
-			mPosition = glm::rotate(mPosition, (float)vertical_rotate_move, glm::vec3(1.0f, 0.0f, 1.0f));
+			mPosition = glm::rotate(mPosition, (float)vertical_rotate_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			body_position = mPosition;
 			
 			//mPosition = glm::rotate(mPosition, (float)glfwGetTime()*1.0f, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -762,11 +761,11 @@ static void render()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(mPosition));
 
 		glUniform3f(glGetUniformLocation(modelLoc,"objColor"), 1.0f, 0.5f, 0.31f);
-		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 0.0f, 1.0f, 0.0f); //Àô¹Ò¥ú
-		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), 10.0f, 10.0f, 5.0f);
+		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), 10.0f, 10.0f, -5.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(modelLoc, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
 
-		//std::cout << i<< std::endl;
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 	}
 	glBindVertexArray(0);
@@ -785,6 +784,7 @@ static void scope_shift() {
 int main(int argc, char *argv[])
 {
 	GLFWwindow* window;
+
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
@@ -858,9 +858,11 @@ int main(int argc, char *argv[])
 	{//program will keep draw here until you close the window
 		float delta = glfwGetTime() - start;
 
+		//glm::mat4 viewMat = camera.GetViewMatrix();
 		setUniformMat4(program, "vp", glm::perspective(glm::radians(fov), 800.0f / 600, 1.0f, 100.f) *
-		glm::lookAt(cameraPos, cameraPos+cameraFront, cameraUp) * glm::mat4(1.0f));
+			glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * glm::mat4(1.0f));
 		motion(window);
+		std::cout << "camera : " << cameraPos.x << ", " << cameraPos.y << ", " << cameraPos.z << std::endl;
 
 		if (running == true) {
 			running_mode();

@@ -19,11 +19,6 @@ out vec3 Normal;
 
 void main()
 {
-	//fTexcoord=texcoord;
 	Normal = mat3(model)*normal;
 	gl_Position=vp*model*vec4(position, 1.0);
 }
-
-
-
-//program that transforming inputs to outputs
