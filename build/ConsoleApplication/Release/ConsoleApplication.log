@@ -26,11 +26,11 @@
           C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : 請參閱 'fopen' 的宣告
 ..\..\source\main.cpp(668): warning C4018: '<' : signed/unsigned 不相符
 ..\..\source\main.cpp(702): warning C4018: '<' : signed/unsigned 不相符
-..\..\source\main.cpp(848): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-..\..\source\main.cpp(849): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-..\..\source\main.cpp(925): warning C4244: '=' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-..\..\source\main.cpp(930): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-..\..\source\main.cpp(950): warning C4244: '=' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+..\..\source\main.cpp(854): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+..\..\source\main.cpp(855): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+..\..\source\main.cpp(931): warning C4244: '=' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+..\..\source\main.cpp(936): warning C4244: '正在初始化' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+..\..\source\main.cpp(956): warning C4244: '=' : 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
   正在產生程式碼
   已完成程式碼產生
-  ConsoleApplication.vcxproj -> D:\NCKU\Computer_Graph_Application\HW4\build\Release\ConsoleApplication.exe
+  ConsoleApplication.vcxproj -> D:\NCKU\Computer_Graph_Application\HW4\Lighting_Animation\build\Release\ConsoleApplication.exe

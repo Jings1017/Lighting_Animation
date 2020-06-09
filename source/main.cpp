@@ -837,6 +837,12 @@ static void render()
 		}
 		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(mPosition));
+
+		glUniform3f(glGetUniformLocation(modelLoc,"objColor"), 1.0f, 0.5f, 0.31f);
+		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 0.0f, 1.0f, 0.0f); //Àô¹Ò¥ú
+		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), 10.0f, 10.0f, 5.0f);
+		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
+
 		//std::cout << i<< std::endl;
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 	}
@@ -892,7 +898,7 @@ int main(int argc, char *argv[])
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// load shader program
-	program = setup_shader(readfile("vs.txt").c_str(), readfile("fs.txt").c_str());
+	program = setup_shader(readfile("light.vert").c_str(), readfile("light.frag").c_str());
 	//program2 = setup_shader(readfile("vs.txt").c_str(), readfile("fs.txt").c_str());
 
 	int body = add_obj(program, "robot_body.obj", "earth.bmp");
