@@ -125,191 +125,135 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 void motion(GLFWwindow* window) {
 
-	
 	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
-		std::cout << "--------H--------" << std::endl;
-
 		if (head_control == false) {
 			head_move -= 0.1;
-			std::cout << "false " << head_move << std::endl;
 			if (head_move <= -0.5) {
 				head_control = true;
-				std::cout << "true " << head_move << std::endl;
 			}
 		}
 		else if (head_control == true) {
 			head_move += 0.1;
-			std::cout << "true " << head_move << std::endl;
 			if (head_move >= 0.3) {
 				head_control = false;
-				std::cout << "false " << head_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		std::cout << "--------A--------" << std::endl;
-
 		if (front_left_thigh_control == false) {
 			front_left_thigh_move -= 0.1;
-			std::cout << "false " << front_left_thigh_move << std::endl;
 			if (front_left_thigh_move <= -2) {
 				front_left_thigh_control = true;
-				std::cout << "true " << front_left_thigh_move << std::endl;
 			}
 		}
 		else if (front_left_thigh_control == true) {
 			front_left_thigh_move += 0.1;
-			std::cout << "true " << front_left_thigh_move << std::endl;
 			if (front_left_thigh_move >= 2) {
 				front_left_thigh_control = false;
-				std::cout << "false " << front_left_thigh_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-		std::cout << "--------Z--------" << std::endl;
-
 		if (front_left_calf_control == false) {
 			front_left_calf_move -= 0.1;
-			std::cout << "false " << front_left_calf_move << std::endl;
 			if (front_left_calf_move <= -0.5) {
 				front_left_calf_control = true;
-				std::cout << "true " << front_left_calf_move << std::endl;
 			}
 		}
 		else if (front_left_calf_control == true) {
 			front_left_calf_move += 0.1;
-			std::cout << "true " << front_left_calf_move << std::endl;
 			if (front_left_calf_move >= 0.5) {
 				front_left_calf_control = false;
-				std::cout << "false " << front_left_calf_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		std::cout << "--------S--------" << std::endl;
-
 		if (front_right_thigh_control == false) {
 			front_right_thigh_move -= 0.1;
-			std::cout << "false " << front_right_thigh_move << std::endl;
 			if (front_right_thigh_move <= -2) {
 				front_right_thigh_control = true;
-				std::cout << "true " << front_right_thigh_move << std::endl;
 			}
 		}
 		else if (front_right_thigh_control == true) {
 			front_right_thigh_move += 0.1;
-			std::cout << "true " << front_right_thigh_move << std::endl;
 			if (front_right_thigh_move >= 2) {
 				front_right_thigh_control = false;
-				std::cout << "false " << front_right_thigh_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-		std::cout << "--------X--------" << std::endl;
-
 		if (front_right_calf_control == false) {
 			front_right_calf_move -= 0.1;
-			std::cout << "false " << front_right_calf_move << std::endl;
 			if (front_right_calf_move <= -0.5) {
 				front_right_calf_control = true;
-				std::cout << "true " << front_right_calf_move << std::endl;
 			}
 		}
 		else if (front_right_calf_control == true) {
 			front_right_calf_move += 0.1;
-			std::cout << "true " << front_right_calf_move << std::endl;
 			if (front_right_calf_move >= 0.5) {
 				front_right_calf_control = false;
-				std::cout << "false " << front_right_calf_move << std::endl;
 			}
 		}
 	}
 
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		std::cout << "--------D--------" << std::endl;
-
 		if (back_left_thigh_control == false) {
 			back_left_thigh_move -= 0.1;
-			std::cout << "false " << back_left_thigh_move << std::endl;
 			if (back_left_thigh_move <= -1) {
 				back_left_thigh_control = true;
-				std::cout << "true " << back_left_thigh_move << std::endl;
 			}
 		}
 		else if (back_left_thigh_control == true) {
 			back_left_thigh_move += 0.1;
-			std::cout << "true " << back_left_thigh_move << std::endl;
 			if (back_left_thigh_move >= 1) {
 				back_left_thigh_control = false;
-				std::cout << "false " << back_left_thigh_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-		std::cout << "--------C--------" << std::endl;
-
 		if (back_left_calf_control == false) {
 			back_left_calf_move -= 0.1;
-			std::cout << "false " << back_left_calf_move << std::endl;
 			if (back_left_calf_move <= -0.5) {
 				back_left_calf_control = true;
-				std::cout << "true " << back_left_calf_move << std::endl;
 			}
 		}
 		else if (back_left_calf_control == true) {
 			back_left_calf_move += 0.1;
-			std::cout << "true " << back_left_calf_move << std::endl;
 			if (back_left_calf_move >= 0.5) {
 				back_left_calf_control = false;
-				std::cout << "false " << back_left_calf_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-		std::cout << "--------F--------" << std::endl;
-
 		if (back_right_thigh_control == false) {
 			back_right_thigh_move -= 0.1;
-			std::cout << "false " << back_right_thigh_move << std::endl;
 			if (back_right_thigh_move <= -1) {
 				back_right_thigh_control = true;
-				std::cout << "true " << back_right_thigh_move << std::endl;
 			}
 		}
 		else if (back_right_thigh_control == true) {
 			back_right_thigh_move += 0.1;
-			std::cout << "true " << back_right_thigh_move << std::endl;
 			if (back_right_thigh_move >= 1) {
 				back_right_thigh_control = false;
-				std::cout << "false " << back_right_thigh_move << std::endl;
 			}
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
-		std::cout << "--------V--------" << std::endl;
-
 		if (back_right_calf_control == false) {
 			back_right_calf_move -= 0.1;
-			std::cout << "false " << back_right_calf_move << std::endl;
 			if (back_right_calf_move <= -0.5) {
 				back_right_calf_control = true;
-				std::cout << "true " << back_right_calf_move << std::endl;
 			}
 		}
 		else if (back_right_calf_control == true) {
 			back_right_calf_move += 0.1;
-			std::cout << "true " << back_right_calf_move << std::endl;
 			if (back_right_calf_move >= 0.5) {
 				back_right_calf_control = false;
-				std::cout << "false " << back_right_calf_move << std::endl;
 			}
 		}
 	}
-	else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) { // for running
-		std::cout << "--------space--------" << std::endl;
-		std::cout << glfwGetTime() << std::endl;
+	else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		//std::cout << glfwGetTime() << std::endl;
 		if (running == false) {
 			running = true;
 		}
@@ -318,46 +262,37 @@ void motion(GLFWwindow* window) {
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		std::cout << "--------left--------" << std::endl;
 		rotate_move += 0.1;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		std::cout << "--------right--------" << std::endl;
 		rotate_move -= 0.1;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		std::cout << "--------up--------" << std::endl;
 		vertical_rotate_move += 0.1;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		std::cout << "--------down--------" << std::endl;
 		vertical_rotate_move -= 0.1;
 	}
 
 	GLfloat cameraSpeed = 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
 		cameraPos += cameraSpeed * cameraFront;
-		std::cout << "cameraPos I" << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
 		cameraPos -= cameraSpeed * cameraFront;
-		std::cout << "cameraPos K" << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-		std::cout << "cameraPos J" << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-		std::cout << "cameraPos L" << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 		test_move += 0.1;
-		std::cout << "test move = "<< test_move << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
@@ -367,15 +302,12 @@ void motion(GLFWwindow* window) {
 		else {
 			scope_rotate = false;
 		}
-		std::cout << "N click" << std::endl;
 	}
 }
 
 static void running_mode() {
 	
 	if ((int)(glfwGetTime() * 10) % 10 == 0) {
-		std::cout << "----- mode 0 -----\n";
-		std::cout <<"mod "<< (int)(glfwGetTime()*10)%20 <<"\n";
 		front_left_thigh_move = 0.0;
 		front_right_thigh_move = 0.0;
 		back_left_thigh_move = 0.0;
@@ -388,41 +320,36 @@ static void running_mode() {
 		jump_move = 0.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 1) {
-		std::cout << "----- mode 1 -----\n";
-		front_left_thigh_move = 1.0;
-		front_right_thigh_move = -1.0;
+		front_left_thigh_move = 0.5;
+		front_right_thigh_move = -0.5;
 		back_left_thigh_move = -0.5;
 		back_right_thigh_move = 0.5;
 	}
 	
 	else if ((int)(glfwGetTime() * 10) % 10 == 2) {
-		std::cout << "----- mode 4 -----\n";
-		front_left_thigh_move = 2.0;
-		front_right_thigh_move = -2.0;
+		front_left_thigh_move = 1.0;
+		front_right_thigh_move = -1.0;
 		back_left_thigh_move = -1.0;
 		back_right_thigh_move = 1.0;
-		head_move = -0.25;
+		//head_move = -0.25;
 		jump_move = 3.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 3) {
-		std::cout << "----- mode 2 -----\n";
 		front_left_calf_move = -0.5;
 		front_right_calf_move = 0.5;
 		back_left_calf_move = 0.5;
 		back_right_calf_move = -0.5;
-		head_move = -0.5;
+		//head_move = -0.5;
 	}
 
 	else if ((int)(glfwGetTime() * 10) % 10 == 4) {
-		std::cout << "----- mode 6 -----\n";
-		front_left_thigh_move = 1.0;
-		front_right_thigh_move = -1.0;
+		front_left_thigh_move = 0.5;
+		front_right_thigh_move = -0.5;
 		back_left_thigh_move = -0.5;
 		back_right_thigh_move = 0.5;
-		head_move = -0.25;
+		//head_move = -0.25;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 5) {
-		std::cout << "----- mode 6 -----\n";
 		front_left_thigh_move = 0.0;
 		front_right_thigh_move = 0.0;
 		back_left_thigh_move = 0.0;
@@ -431,40 +358,36 @@ static void running_mode() {
 		front_right_calf_move = 0.0;
 		back_left_calf_move = 0.0;
 		back_right_calf_move = 0.0;
-		head_move = 0.0;
+		//head_move = 0.0;
 		jump_move = 0.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 6) {
-		std::cout << "----- mode 6 -----\n";
-		front_left_thigh_move = -1.0;
-		front_right_thigh_move = 1.0;
+		front_left_thigh_move = -0.5;
+		front_right_thigh_move = 0.5;
 		back_left_thigh_move = 0.5;
 		back_right_thigh_move = -0.5;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 7) {
-		std::cout << "----- mode 6 -----\n";
-		front_left_thigh_move = -2.0;
-		front_right_thigh_move = 2.0;
+		front_left_thigh_move = -1.0;
+		front_right_thigh_move = 1.0;
 		back_left_thigh_move = 1.0;
 		back_right_thigh_move = -1.0;
-		head_move = 0.25;
+		//head_move = 0.25;
 		jump_move = 3.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 8) {
-		std::cout << "----- mode 2 -----\n";
 		front_left_calf_move = 0.5;
 		front_right_calf_move = -0.5;
 		back_left_calf_move = -0.5;
 		back_right_calf_move = 0.5;
-		head_move = 0.5;
+		//head_move = 0.5;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 9) {
-		std::cout << "----- mode 6 -----\n";
-		front_left_thigh_move = -1.0;
-		front_right_thigh_move = 1.0;
+		front_left_thigh_move = -0.5;
+		front_right_thigh_move = 0.5;
 		back_left_thigh_move = 0.5;
 		back_right_thigh_move = -0.5;
-		head_move = 0.25;
+		//head_move = 0.25;
 	}
 }
 
@@ -901,15 +824,15 @@ int main(int argc, char *argv[])
 	program = setup_shader(readfile("light.vert").c_str(), readfile("light.frag").c_str());
 	//program2 = setup_shader(readfile("vs.txt").c_str(), readfile("fs.txt").c_str());
 
-	int body = add_obj(program, "robot_body.obj", "earth.bmp");
-	int head = add_obj(program, "robot_head.obj", "cow.bmp");
-	int left_arm = add_obj(program, "robot_limb.obj", "cow.bmp");
+	int body = add_obj(program, "robot_body.obj", "moon.bmp");
+	int head = add_obj(program, "robot_head.obj", "moon.bmp");
+	int left_arm = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int left_elbow = add_obj(program, "robot_limb.obj", "moon.bmp");
-	int right_arm = add_obj(program, "robot_limb.obj", "cow.bmp");
+	int right_arm = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int right_elbow = add_obj(program, "robot_limb.obj", "moon.bmp");
-	int left_thigh = add_obj(program, "robot_limb.obj", "cow.bmp");
+	int left_thigh = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int left_calf = add_obj(program, "robot_limb.obj", "moon.bmp");
-	int right_thigh = add_obj(program, "robot_limb.obj", "cow.bmp");
+	int right_thigh = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int right_calf = add_obj(program, "robot_limb.obj", "moon.bmp");
 
 	glEnable(GL_DEPTH_TEST);
@@ -951,7 +874,7 @@ int main(int argc, char *argv[])
 		fps++;
 		if (glfwGetTime() - last > 1.0)
 		{
-			std::cout << (double)fps / (glfwGetTime() - last) << std::endl;
+			//std::cout << (double)fps / (glfwGetTime() - last) << std::endl;
 			fps = 0;
 			last = glfwGetTime();
 		}
