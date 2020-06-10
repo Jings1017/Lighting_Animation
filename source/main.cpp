@@ -12,6 +12,8 @@
 
 #define GLM_FORCE_RADIANS
 
+bool blinn = false;
+
 bool head_control = false;
 float head_move = 0;
 
@@ -39,6 +41,7 @@ float rotate_move = 0;
 float vertical_rotate_move = 0;
 
 float test_move = 0;
+float light_move = 0;
 
 bool running = false;
 
@@ -299,6 +302,18 @@ void motion(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 		test_move += 0.1;
 		std::cout << test_move << std::endl;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		light_move += 0.1;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+		if (blinn == false)
+			blinn = true;
+		else
+			blinn = false;
+		//std::cout << "blinn = " << blinn << std::endl;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
@@ -769,9 +784,9 @@ static void render()
 			float radiusX = 20.0f;
 			float radiusY = 18.0f;
 			float radiusZ = 20.0f;
-			float X = cos(glfwGetTime())*radiusX;
+			float X = cos(light_move)*radiusX;
 			float Y = radiusY;
-			float Z = sin(glfwGetTime())*radiusZ;
+			float Z = sin(light_move)*radiusZ;
 			mPosition = body_position;
 			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
 			mPosition = glm::scale(mPosition, glm::vec3(0.8f, 0.8f, 0.8f));
@@ -792,6 +807,7 @@ static void render()
 		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+		glUniform1i(glGetUniformLocation(modelLoc, "blinn"), blinn);
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 	}
 	glBindVertexArray(0);
