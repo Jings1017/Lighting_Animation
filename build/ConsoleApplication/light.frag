@@ -13,6 +13,7 @@ uniform vec3 cameraPos;
 
 void main()
 {
+
 	vec3 lightDir = normalize(lightPos - FragPos);
 	vec3 reflectVec = reflect(-lightDir,Normal);
 	vec3 cameraVec = normalize(cameraPos - FragPos);

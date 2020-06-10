@@ -54,9 +54,11 @@ struct object_struct{
 	object_struct() : model(glm::mat4(1.0f)){}
 };
 
-glm::vec3 cameraPos = glm::vec3(10.0f, 0.0f, 43.0f);
+glm::vec3 cameraPos = glm::vec3(10.0f, 0.0f, 80.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+glm::vec3 lightPos = glm::vec3(0, 0, 0);
 
 bool firstMouse = true;
 float pitch = 0.0f;
@@ -625,6 +627,7 @@ static void render()
 	glm::mat4 right_elbow_position;
 	glm::mat4 left_thigh_position;
 	glm::mat4 left_calf_position;
+	glm::mat4 light_src_position;
 	
 	for (int i = 0; i<objects.size(); i++){
 		//VAO VBO are binded in add_Object function
@@ -712,7 +715,7 @@ static void render()
 		}
 		else if (i == 6) {			//for left thigh
 			float radiusX = 3.0f;
-			float radiusY = 0.0f;
+			float radiusY = 0.5f;
 			float radiusZ = -2.3f;
 			float X = radiusX;
 			float Y = radiusY;
@@ -738,7 +741,7 @@ static void render()
 		}
 		else if (i == 8) {			//for right thigh
 			float radiusX = 3.0f;
-			float radiusY = 0.0f;
+			float radiusY = 0.5f;
 			float radiusZ = -4.7f;
 			float X = radiusX;
 			float Y = radiusY;
@@ -762,15 +765,33 @@ static void render()
 			mPosition = glm::rotate(mPosition, (float)back_right_calf_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			left_calf_position = mPosition;
 		}
+		else if (i == 10) {			//for light source
+			float radiusX = 20.0f;
+			float radiusY = 18.0f;
+			float radiusZ = 20.0f;
+			float X = cos(glfwGetTime())*radiusX;
+			float Y = radiusY;
+			float Z = sin(glfwGetTime())*radiusZ;
+			mPosition = body_position;
+			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
+			mPosition = glm::scale(mPosition, glm::vec3(0.8f, 0.8f, 0.8f));
+			light_src_position = mPosition;
+			lightPos.x = Z;
+			lightPos.y = Y;
+			lightPos.z = X;
+		}
 		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(mPosition));
-
-		glUniform3f(glGetUniformLocation(modelLoc,"objColor"), 1.0f, 0.5f, 0.31f);
+		if (i != 10) {
+			glUniform3f(glGetUniformLocation(modelLoc, "objColor"), 1.0f, 0.5f, 0.31f);
+		}
+		else {
+			glUniform3f(glGetUniformLocation(modelLoc, "objColor"), 1.0f, 1.0f, 1.0f);
+		}
 		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), 10.0f, 10.0f, -5.0f);
+		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
-
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 	}
 	glBindVertexArray(0);
@@ -838,6 +859,7 @@ int main(int argc, char *argv[])
 	int left_calf = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int right_thigh = add_obj(program, "robot_limb.obj", "moon.bmp");
 	int right_calf = add_obj(program, "robot_limb.obj", "moon.bmp");
+	int light_source = add_obj(program, "robot_head.obj", "moon.bmp");
 
 	glEnable(GL_DEPTH_TEST);
 	// prevent faces rendering to the front while they're behind other faces. 
