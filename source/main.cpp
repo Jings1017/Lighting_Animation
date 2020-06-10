@@ -12,7 +12,7 @@
 
 #define GLM_FORCE_RADIANS
 
-bool blinn = false;
+GLboolean blinn = false;
 
 bool head_control = false;
 float head_move = 0;
@@ -558,7 +558,7 @@ static int add_obj(unsigned int program, const char *filename, const char *texbm
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*shapes[0].mesh.positions.size(),
 		shapes[0].mesh.positions.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // position
 	if (shapes[0].mesh.texcoords.size()>0)
 	{
 
@@ -567,7 +567,7 @@ static int add_obj(unsigned int program, const char *filename, const char *texbm
 		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*shapes[0].mesh.texcoords.size(),
 			shapes[0].mesh.texcoords.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0); // texcoord
 		//glActiveTexture(GL_TEXTURE0);	//Activate texture unit before binding texture, used when having multiple texture
 		glBindTexture(GL_TEXTURE_2D, new_node.texture);
 		unsigned int width, height;
@@ -784,9 +784,9 @@ static void render()
 			float radiusX = 20.0f;
 			float radiusY = 18.0f;
 			float radiusZ = 20.0f;
-			float X = cos(light_move)*radiusX;
-			float Y = radiusY;
-			float Z = sin(light_move)*radiusZ;
+			float X = cos(light_move)*(radiusX + test_move);
+			float Y = radiusY - test_move;
+			float Z = sin(light_move)*(radiusZ + test_move);
 			mPosition = body_position;
 			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
 			mPosition = glm::scale(mPosition, glm::vec3(0.8f, 0.8f, 0.8f));
@@ -806,9 +806,11 @@ static void render()
 		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(modelLoc, "cameraPos"), cameraPos.x, cameraPos.y, cameraPos.z);
-		glUniform1i(glGetUniformLocation(modelLoc, "blinn"), blinn);
+		glUniform3f(glGetUniformLocation(modelLoc, "viewPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+		glUniform1i(glGetUniformLocation(modelLoc, "mode"), blinn);
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
+
+		//std::cout << (blinn ? "true" : "false") << std::endl;
 	}
 	glBindVertexArray(0);
 }
