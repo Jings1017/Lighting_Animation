@@ -1,4 +1,4 @@
-# Light Animation
+# Lighting Animation
 
 ### **作業環境** 
 
