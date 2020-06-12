@@ -260,16 +260,16 @@ void motion(GLFWwindow* window) {
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		rotate_move -= 0.1;
+		rotate_move -= 0.01;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		rotate_move += 0.1;
+		rotate_move += 0.01;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		vertical_rotate_move += 0.1;
+		vertical_rotate_move += 0.01;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		vertical_rotate_move -= 0.1;
+		vertical_rotate_move -= 0.01;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
 		walk_move -= 0.1;
@@ -339,7 +339,7 @@ static void running_mode() {
 		back_left_calf_move = 0.0;
 		back_right_calf_move = 0.0;
 		head_move = 0.0;
-		jump_move = 0.0;
+		//jump_move = 0.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 1) {
 		front_left_thigh_move = 0.5;
@@ -353,7 +353,7 @@ static void running_mode() {
 		front_right_thigh_move = -1.0;
 		back_left_thigh_move = -1.0;
 		back_right_thigh_move = 1.0;
-		jump_move = 3.0;
+		//jump_move = 3.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 3) {
 		front_left_calf_move = -0.5;
@@ -377,7 +377,7 @@ static void running_mode() {
 		front_right_calf_move = 0.0;
 		back_left_calf_move = 0.0;
 		back_right_calf_move = 0.0;
-		jump_move = 0.0;
+		//jump_move = 0.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 6) {
 		front_left_thigh_move = -0.5;
@@ -649,7 +649,7 @@ static void render()
 		
 		if (i == 0) {		//for main body
 			mPosition = glm::scale(mPosition, glm::vec3(1.0f, 1.0f, 1.0f));
-			mPosition = glm::translate(mPosition, glm::vec3(6.2+walk_move, jump_move, 0));
+			mPosition = glm::translate(mPosition, glm::vec3(6.2+walk_move, 0, 0));
 			mPosition = glm::rotate(mPosition, (float)rotate_move-1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 			mPosition = glm::rotate(mPosition, (float)vertical_rotate_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			body_position = mPosition;
@@ -776,7 +776,7 @@ static void render()
 			float radiusY = 3.0f;
 			float radiusZ = 10.0f;
 			float X = cos(light_move)*(radiusX);
-			float Y = radiusY - test_move;
+			float Y = radiusY;
 			float Z = sin(light_move)*(radiusZ);
 			mPosition = body_position;
 			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
@@ -786,13 +786,13 @@ static void render()
 			lightPos.y = Y ;
 			lightPos.z = X ;
 		}
-		
+
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(mPosition));
-		if (i != 10) {
-			glUniform3f(glGetUniformLocation(modelLoc, "objColor"), 0.5f, 0.5f, 0.5f);
+		if (i == 10) {
+			glUniform3f(glGetUniformLocation(modelLoc, "objColor"),1.0f, 1.0f, 1.0f);
 		}
 		else {
-			glUniform3f(glGetUniformLocation(modelLoc, "objColor"), 1.0f, 1.0f, 1.0f);
+			glUniform3f(glGetUniformLocation(modelLoc, "objColor"), 0.5f, 0.5f, 0.5f);
 		}
 
 		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
@@ -867,8 +867,8 @@ int main(int argc, char *argv[])
 	// Setup input callback
 	glfwSetKeyCallback(window, key_callback);
 
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, mouse_callback);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetCursorPosCallback(window, mouse_callback);
 
 	glfwSetScrollCallback(window, scroll_callback);
 
