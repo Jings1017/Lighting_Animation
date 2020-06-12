@@ -623,7 +623,7 @@ static void releaseObjects()
 		glDeleteBuffers(4, objects[i].vbo);
 	}
 	glDeleteProgram(program);
-	glDeleteProgram(program2);
+	//glDeleteProgram(program2);
 }
 
 static void setUniformMat4(unsigned int program, const std::string &name, const glm::mat4 &mat)
@@ -815,10 +815,14 @@ static void render()
 
 		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-		glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
+		if (blinnMode == false) {
+			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0f, 1.0f, 1.0f);
+		}
+		else {
+			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
+		}
 		glUniform3f(glGetUniformLocation(modelLoc, "viewPos"), cameraPos.x, cameraPos.y, cameraPos.z);
-		glUniform1i(glGetUniformLocation(modelLoc, "blinnMode"), blinnMode);
-
+		//glUniform1i(glGetUniformLocation(modelLoc, "blinnMode"), blinnMode);
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 
 	}
