@@ -28,7 +28,6 @@ void main()
 	}
 
 	vec3 specular = specularAmount * lightColor;
-
 	vec3 diffuse = max(dot(lightDir, normal), 0) * lightColor;
 
 	color = vec4((ambientColor + diffuse + specular) * objColor,1.0);

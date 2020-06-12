@@ -15,7 +15,6 @@
 
 bool head_control = false;
 float head_move = 0;
-//
 bool front_left_thigh_control = false;
 float front_left_thigh_move = 0;
 bool front_left_calf_control = false;
@@ -24,7 +23,6 @@ bool front_right_thigh_control = false;
 float front_right_thigh_move = 0;
 bool front_right_calf_control = false;
 float front_right_calf_move = 0;
-//
 bool back_left_thigh_control = false;
 float back_left_thigh_move = 0;
 bool back_left_calf_control = false;
@@ -33,19 +31,17 @@ bool back_right_thigh_control = false;
 float back_right_thigh_move = 0;
 bool back_right_calf_control = false;
 float back_right_calf_move = 0;
-//
+
 float jump_move = 0;
 float walk_move = 0;
 float rotate_move = 0;
 float vertical_rotate_move = 0;
-
 float test_move = 0;
 float light_move = 0.6;
-
 bool running = false;
-
 bool scope_rotate = false;
 float delta = 0;
+bool blinnMode = false;
 
 struct object_struct{
 	unsigned int program;
@@ -69,10 +65,8 @@ float lastX = 400.0f;
 float lastY = 300.0f;
 float fov = 45.0f;
 
-bool blinnMode = false;
-
 std::vector<object_struct> objects;//vertex array object,vertex buffer object and texture(color) for objs
-unsigned int program, program2;
+unsigned int program;
 std::vector<int> indicesCount;//Number of indice of objs
 
 static void error_callback(int error, const char* description)
@@ -201,7 +195,6 @@ void motion(GLFWwindow* window) {
 			}
 		}
 	}
-
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		if (back_left_thigh_control == false) {
 			back_left_thigh_move -= 0.1;
@@ -360,7 +353,6 @@ static void running_mode() {
 		front_right_thigh_move = -1.0;
 		back_left_thigh_move = -1.0;
 		back_right_thigh_move = 1.0;
-		//head_move = -0.25;
 		jump_move = 3.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 3) {
@@ -368,7 +360,6 @@ static void running_mode() {
 		front_right_calf_move = 0.5;
 		back_left_calf_move = 0.5;
 		back_right_calf_move = -0.5;
-		//head_move = -0.5;
 	}
 
 	else if ((int)(glfwGetTime() * 10) % 10 == 4) {
@@ -376,7 +367,6 @@ static void running_mode() {
 		front_right_thigh_move = -0.5;
 		back_left_thigh_move = -0.5;
 		back_right_thigh_move = 0.5;
-		//head_move = -0.25;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 5) {
 		front_left_thigh_move = 0.0;
@@ -387,7 +377,6 @@ static void running_mode() {
 		front_right_calf_move = 0.0;
 		back_left_calf_move = 0.0;
 		back_right_calf_move = 0.0;
-		//head_move = 0.0;
 		jump_move = 0.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 6) {
@@ -401,7 +390,6 @@ static void running_mode() {
 		front_right_thigh_move = 1.0;
 		back_left_thigh_move = 1.0;
 		back_right_thigh_move = -1.0;
-		//head_move = 0.25;
 		jump_move = 3.0;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 8) {
@@ -409,14 +397,12 @@ static void running_mode() {
 		front_right_calf_move = -0.5;
 		back_left_calf_move = -0.5;
 		back_right_calf_move = 0.5;
-		//head_move = 0.5;
 	}
 	else if ((int)(glfwGetTime() * 10) % 10 == 9) {
 		front_left_thigh_move = -0.5;
 		front_right_thigh_move = 0.5;
 		back_left_thigh_move = 0.5;
 		back_right_thigh_move = -0.5;
-		//head_move = 0.25;
 	}
 }
 
@@ -623,7 +609,6 @@ static void releaseObjects()
 		glDeleteBuffers(4, objects[i].vbo);
 	}
 	glDeleteProgram(program);
-	//glDeleteProgram(program2);
 }
 
 static void setUniformMat4(unsigned int program, const std::string &name, const glm::mat4 &mat)
@@ -662,15 +647,12 @@ static void render()
 		GLint modelLoc = glGetUniformLocation(objects[i].program, "model");
 		glm::mat4 mPosition;
 		
-		//mPosition = glm::translate(mPosition, modelPositions[i]);
 		if (i == 0) {		//for main body
 			mPosition = glm::scale(mPosition, glm::vec3(1.0f, 1.0f, 1.0f));
 			mPosition = glm::translate(mPosition, glm::vec3(6.2+walk_move, jump_move, 0));
 			mPosition = glm::rotate(mPosition, (float)rotate_move-1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 			mPosition = glm::rotate(mPosition, (float)vertical_rotate_move, glm::vec3(0.0f, 0.0f, 1.0f));
 			body_position = mPosition;
-			
-			//mPosition = glm::rotate(mPosition, (float)glfwGetTime()*1.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 		else if(i == 1){			//for head
 			float radiusX = 0.5f;
@@ -791,10 +773,10 @@ static void render()
 		}
 		else if (i == 10) {			//for light source
 			float radiusX = 10.0f;
-			float radiusY = 18.0f;
+			float radiusY = 3.0f;
 			float radiusZ = 10.0f;
 			float X = cos(light_move)*(radiusX);
-			float Y = radiusY - 15 - test_move;
+			float Y = radiusY - test_move;
 			float Z = sin(light_move)*(radiusZ);
 			mPosition = body_position;
 			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
@@ -819,10 +801,9 @@ static void render()
 			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0f, 1.0f, 1.0f);
 		}
 		else {
-			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 1.0f, 1.0f, 1.0f);
+			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.001f, 1.0f, 1.0f);
 		}
 		glUniform3f(glGetUniformLocation(modelLoc, "viewPos"), cameraPos.x, cameraPos.y, cameraPos.z);
-		//glUniform1i(glGetUniformLocation(modelLoc, "blinnMode"), blinnMode);
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 
 	}
@@ -834,8 +815,8 @@ static void scope_shift() {
 	float camX = sin(glfwGetTime()) * radius;
 	float camZ = cos(glfwGetTime()) * radius;
 	if (scope_rotate == true) {
-		cameraPos = (glm::vec3(camX,40.0, camZ));
-		cameraFront = (glm::vec3(-camX, -40.0, -camZ));
+		cameraPos = (glm::vec3(camX,0.0, camZ));
+		cameraFront = (glm::vec3(-camX, 0.0, -camZ));
 	}
 }
 
@@ -886,16 +867,14 @@ int main(int argc, char *argv[])
 	// Setup input callback
 	glfwSetKeyCallback(window, key_callback);
 
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouse_callback);
 
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// load shader program
 	program = setup_shader(readfile("light.vert").c_str(), readfile("light.frag").c_str());
 	createObj(program);
-	//program2 = setup_shader(readfile("light.vert").c_str(), readfile("blinn_light.frag").c_str());
-	//createObj(program2);
 
 	glEnable(GL_DEPTH_TEST);
 	// prevent faces rendering to the front while they're behind other faces. 
@@ -923,16 +902,6 @@ int main(int argc, char *argv[])
 		glm::mat4 see = glm::perspective(glm::radians(fov), 800.0f / 600, 1.0f, 100.f) *
 			glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * glm::mat4(1.0f);
 
-		/*if (blinn==false) {
-			//std::cout << "program\n";
-			
-			setUniformMat4(program, "vp", see);
-		}
-		else {
-			//std::cout << "program2\n";
-			
-			setUniformMat4(program2, "vp", see);
-		}*/
 		setUniformMat4(program, "vp", see);
 
 		motion(window);
@@ -949,7 +918,6 @@ int main(int argc, char *argv[])
 		fps++;
 		if (glfwGetTime() - last > 1.0)
 		{
-			//std::cout << (double)fps / (glfwGetTime() - last) << std::endl;
 			fps = 0;
 			last = glfwGetTime();
 		}
