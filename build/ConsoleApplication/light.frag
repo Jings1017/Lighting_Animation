@@ -2,9 +2,12 @@
 
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 fTexcoord;
+
 
 layout(location=0) out vec4 color;
 
+uniform sampler2D uSampler;
 uniform vec3 objColor;
 uniform vec3 ambientColor;
 uniform vec3 lightPos;
@@ -30,5 +33,5 @@ void main()
 	vec3 specular = specularAmount * lightColor;
 	vec3 diffuse = max(dot(lightDir, normal), 0) * lightColor;
 
-	color = vec4((ambientColor + diffuse + specular) * objColor,1.0);
+	color = vec4((ambientColor + diffuse + specular) * objColor,1.0)*texture( uSampler,fTexcoord);
 }

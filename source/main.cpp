@@ -562,7 +562,7 @@ static int add_obj(unsigned int program, const char *filename, const char *texbm
 			shapes[0].mesh.texcoords.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0); // texcoord
-		//glActiveTexture(GL_TEXTURE0);	//Activate texture unit before binding texture, used when having multiple texture
+		glActiveTexture(GL_TEXTURE0);	//Activate texture unit before binding texture, used when having multiple texture
 		glBindTexture(GL_TEXTURE_2D, new_node.texture);
 		unsigned int width, height;
 		unsigned short int bits;

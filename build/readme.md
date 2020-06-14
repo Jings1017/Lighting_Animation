@@ -39,6 +39,10 @@
 * viewPos         : camera位置
 * lightColor      : 光的顏色(針對diffuse,specular使用)
 
+先將讀進來的向量做normalize<br>
+利用公式算出halfwayDir,reflectVec,diffuse,specularAmount,specular<br>
+最後搭配texture輸出<br>
+註: 此部分objColor,與texture圖片檔皆為灰色，可能看不太出來，但實測發現加了texture會更暗一些<br>
 
 ----
 
