@@ -20,14 +20,15 @@ void main()
 	vec3 normal = normalize(Normal);
 	vec3 viewDir = normalize(viewPos - FragPos);
 	float specularAmount = 0.0;
-	
+	float gamma = 1.5;
+
 	if(lightColor.x>0){
 		vec3 halfwayDir = normalize(lightDir + viewDir);
-		specularAmount = pow(max(dot(normal, halfwayDir),0.0),8.0);
+		specularAmount = pow(max(dot(normal, halfwayDir),0.0),16.0);
 	}
 	else{
 		vec3 reflectVec = reflect(-lightDir,normal);
-		specularAmount = pow(max(dot(reflectVec, viewDir),0.0),256.0);
+		specularAmount = pow(max(dot(reflectVec, viewDir),0.0),64.0);
 	}
 
 	vec3 specular = specularAmount * lightColor;

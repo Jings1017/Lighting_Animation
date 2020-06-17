@@ -33,8 +33,8 @@
 
 先用 uniform <br>
 把以下讀入 fragment<br> 
-* ObjColor        : 物體本身的顏色
-* ambientColor    : 環境光顏色
+* ObjColor        : 物體本身的顏色，這裡設定成灰色
+* ambientColor    : 環境光顏色，這裡設定成白光
 * lightPos        : 光源位置
 * viewPos         : camera位置
 * lightColor      : 光的顏色(針對diffuse,specular使用)
@@ -92,6 +92,11 @@
 **T**   : phong <br>
 **Y**   : blinn-phong <br>
 
+#### **燈光顏色轉換**
+
+**Q**   : 隨時間換色 <br>
+**W**   : 固定色 <br>
+
 ----
 
-demo link : https://youtu.be/WDqCa9GXaX8
+demo link : https://youtu.be/MtNk9dqrdn0

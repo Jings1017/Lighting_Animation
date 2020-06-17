@@ -42,6 +42,7 @@ bool running = false;
 bool scope_rotate = false;
 float delta = 0;
 bool blinnMode = false;
+bool light_color_change = false;
 
 struct object_struct{
 	unsigned int program;
@@ -276,6 +277,12 @@ void motion(GLFWwindow* window) {
 	}
 	else if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
 		walk_move += 0.1;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+		light_color_change = true;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		light_color_change = false;
 	}
 
 	// camera section
@@ -782,9 +789,9 @@ static void render()
 			mPosition = glm::translate(mPosition, glm::vec3(X, Y, Z));
 			mPosition = glm::scale(mPosition, glm::vec3(0.2f, 0.2f, 0.2f));
 			light_src_position = mPosition;
-			lightPos.x = Z ;
+			lightPos.x = X ;
 			lightPos.y = Y ;
-			lightPos.z = X ;
+			lightPos.z = Z ;
 		}
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(mPosition));
@@ -797,12 +804,23 @@ static void render()
 
 		glUniform3f(glGetUniformLocation(modelLoc, "ambientColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(modelLoc, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-		if (blinnMode == false) {
-			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0f, 1.0f, 1.0f);
+		if (light_color_change == false) {
+			if (blinnMode == false) {
+				glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0f, 1.0f, 1.0f);
+			}
+			else {
+				glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0001f, 1.0f, 1.0f);
+			}
 		}
 		else {
-			glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.001f, 1.0f, 1.0f);
+			if (blinnMode == false) {
+				glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0f, sin(glfwGetTime()*0.7f), sin(glfwGetTime()*0.8f));
+			}
+			else {
+				glUniform3f(glGetUniformLocation(modelLoc, "lightColor"), 0.0001f, sin(glfwGetTime()*0.7f), sin(glfwGetTime()*0.8f));
+			}
 		}
+		
 		glUniform3f(glGetUniformLocation(modelLoc, "viewPos"), cameraPos.x, cameraPos.y, cameraPos.z);
 		glDrawElements(GL_TRIANGLES, indicesCount[i], GL_UNSIGNED_INT, nullptr);
 
